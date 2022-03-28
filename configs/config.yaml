@@ -2,7 +2,7 @@ server:
   port: "8000"
 
 db:
-  host: "localhost"
+  host: "pgd_db"
   port: "5432"
   username: "postgres"
   password: 'postgres'

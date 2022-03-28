@@ -4,12 +4,15 @@ services:
   server:
     build: .
     restart: always
-    network_mode: host
     ports:
       - "8000:8000"
     depends_on:
       - db
+    tty: true
+    links:
+      - db
   db:
+    container_name: pgd_db
     image: postgres
     restart: always
     volumes:

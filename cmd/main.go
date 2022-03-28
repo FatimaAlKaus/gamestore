@@ -19,7 +19,7 @@ func main() {
 	db, err := db.NewPostgresDb(config)
 	if err != nil {
 		fmt.Printf("Faield to init db: %s \n", err.Error())
-		// os.Exit(1)
+		os.Exit(1)
 	}
 	defer db.Close()
 

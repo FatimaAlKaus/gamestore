@@ -25,8 +25,8 @@ type Config struct {
 
 func (cfg *Config) GetConnectionString() string {
 	db := cfg.db
-	return fmt.Sprintf("postgres://%s:%s@localhost:%s/%s?sslmode=%s",
-		db.Username, db.Password, db.Port, db.DbName, db.SSLMode)
+	return fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=%s",
+		db.Username, db.Password, db.Host, db.Port, db.DbName, db.SSLMode)
 }
 func (cfg *Config) GetAddress() string {
 	return fmt.Sprintf(":%s", cfg.server.Port)
