@@ -6,6 +6,9 @@ import (
 	"Lab1/pkg/handler"
 	"Lab1/pkg/repository"
 	"fmt"
+	"github.com/golang-migrate/migrate/v4"
+	_ "github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 	_ "github.com/lib/pq"
 	"os"
 )
@@ -22,6 +25,15 @@ func main() {
 		os.Exit(1)
 	}
 	defer db.Close()
+	m, err := migrate.New(
+		"file://db/migrations",
+		config.GetConnectionString())
+	if err != nil {
+		fmt.Printf("Failed to read migrations: %s", err.Error())
+	}
+	if err := m.Up(); err != nil {
+		fmt.Printf("Failed to apply migration: %s", err.Error())
+	}
 
 	repository := repository.NewRepository(db)
 	handlers := handler.NewHandler(repository)
@@ -29,4 +41,5 @@ func main() {
 	server := handlers.InitRoutes()
 
 	server.Run(config.GetAddress())
+	fmt.Printf("Server started")
 }
