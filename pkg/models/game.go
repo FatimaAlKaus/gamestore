@@ -1,8 +1,8 @@
 package models
 
 type Game struct {
-	id     int
-	name   string
-	genres []*Genre
-	rating *Rating
+	Id     int      `json:"id"`
+	Name   string   `json:"name"`
+	Genres []*Genre `json:"genres"`
+	Rating *Rating  `json:"rating"`
 }

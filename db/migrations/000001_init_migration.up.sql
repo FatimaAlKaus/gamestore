@@ -10,10 +10,10 @@ CREATE TABLE IF NOT EXISTS rating
 );
 CREATE TABLE IF NOT EXISTS games
 (
-    id     serial primary key,
-    name   varchar(30) check ( name <> '' ) not null,
-    price  decimal check ( price > 0 )      not null,
-    rating int references rating (id)       not null
+    id        serial primary key,
+    name      varchar(30) check ( name <> '' ) not null,
+    price     decimal check ( price > 0 )      not null,
+    rating_id int references rating (id)       not null
 );
 CREATE TABLE IF NOT EXISTS genres_games
 (

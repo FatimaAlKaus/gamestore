@@ -1,2 +1,5 @@
 .idea
 .pg-data
+docker-compose.yml
+README.md
+Dockerfile

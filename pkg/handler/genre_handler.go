@@ -4,6 +4,7 @@ import (
 	"Lab1/pkg/models"
 	"Lab1/pkg/repository"
 	"Lab1/pkg/requests"
+	"Lab1/pkg/response"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
@@ -45,7 +46,7 @@ func (g *GenreHandler) CreateGenre(ctx *gin.Context) {
 	genre := &models.Genre{Name: input.Name}
 	result, err := g.rep.Genres.Create(genre)
 	if err != nil {
-		ctx.JSON(http.StatusConflict, gin.H{"error": "Same genre already exists"})
+		response.Conflict(ctx, "Same genre already exists")
 		return
 	}
 	ctx.JSON(http.StatusCreated, gin.H{"data": result})

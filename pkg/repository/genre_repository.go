@@ -23,11 +23,10 @@ func (g *Genre) GetById(id int) (*models.Genre, error) {
 }
 
 func (g *Genre) GetAll() []models.Genre {
-	rows, err := g.db.Query("select * from genres")
+	rows, err := g.db.Query("SELECT * FROM genres")
 	if err != nil {
 		panic(err)
 	}
-	defer rows.Close()
 	var genres []models.Genre
 
 	for rows.Next() {

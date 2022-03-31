@@ -7,6 +7,7 @@ import (
 
 type Handler struct {
 	Genres
+	Rating
 }
 type Genres interface {
 	GetAllGenres(ctx *gin.Context)
@@ -14,6 +15,11 @@ type Genres interface {
 	CreateGenre(ctx *gin.Context)
 	DeleteGenre(ctx *gin.Context)
 	UpdateGenre(ctx *gin.Context)
+}
+type Rating interface {
+	GetAllRatings(ctx *gin.Context)
+	GetRatingById(ctx *gin.Context)
+	CreateRating(ctx *gin.Context)
 }
 
 func (h *Handler) InitRoutes() *gin.Engine {
@@ -28,6 +34,12 @@ func (h *Handler) InitRoutes() *gin.Engine {
 			genres.DELETE("/:id", h.DeleteGenre)
 			genres.PUT("/", h.UpdateGenre)
 		}
+		rating := api.Group("/rating")
+		{
+			rating.GET("/", h.GetAllRatings)
+			rating.GET("/:id", h.GetRatingById)
+			rating.POST("/", h.CreateRating)
+		}
 	}
 
 	return router
@@ -36,5 +48,6 @@ func (h *Handler) InitRoutes() *gin.Engine {
 func NewHandler(repos *repository.Repository) *Handler {
 	return &Handler{
 		Genres: newGenreHandler(repos),
+		Rating: newRatingHandler(repos),
 	}
 }
